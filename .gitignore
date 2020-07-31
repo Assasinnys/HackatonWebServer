@@ -107,3 +107,5 @@ dist
 .idea
 app/build
 local.properties
+settings.gradle
+build
