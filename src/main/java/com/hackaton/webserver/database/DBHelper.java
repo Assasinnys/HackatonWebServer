@@ -14,6 +14,10 @@ public class DBHelper {
     private static final String PASS_C = "pass";
     private static final String ID_C = "id";
 
+    public static final String CREATED_CODE = "created";
+    public static final String ERROR_CODE = "unknown error";
+    public static final String EXIST_CODE = "exist";
+
     private Connection connection;
 
     public DBHelper() {
@@ -59,5 +63,23 @@ public class DBHelper {
         }
 
         return null;
+    }
+
+    public String createUser(String login, String pass) {
+        try {
+            Statement s = connection.createStatement();
+            User user = getUser(login);
+            if (user == null) {
+                s.execute("INSERT INTO " + USERS_TABLE + " (" + LOGIN_C + ", " + PASS_C +
+                        ") VALUES (\'" + login + "\', \'" + pass + "\')");
+                s.close();
+                return CREATED_CODE;
+            } else {
+                return EXIST_CODE;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ERROR_CODE;
     }
 }
