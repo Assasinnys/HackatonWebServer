@@ -1,8 +1,15 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.61'
+    id 'java'
+    id 'maven'
 }
 
-group 'hakaton'
+compileJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group 'hackaton'
 version '1.0'
 
 repositories {
@@ -11,6 +18,9 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
+    implementation group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.14.v20181114'
+    implementation group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.14.v20181114'
 }
 
 compileKotlin {
@@ -18,4 +28,15 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'herbott.Main'
+    }
+    baseName = project.name + '-correctJar'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
