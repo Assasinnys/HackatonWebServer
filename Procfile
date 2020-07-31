@@ -1,0 +1,1 @@
+web: java -Dfile.encoding=UTF-8 -jar build/libs/WebServer-correctJar-1.0.jar
