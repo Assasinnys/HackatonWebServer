@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class Hi extends HttpServlet {
         private static final String INDEX = "<!DOCTYPE html>\n" +
@@ -22,7 +24,7 @@ public class Hi extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("GET request accepted! ☺");
         resp.getOutputStream().flush();
-        resp.getOutputStream().print(INDEX);
+        resp.getOutputStream().write(INDEX.getBytes(StandardCharsets.UTF_8));
         resp.getOutputStream().flush();
         resp.setStatus(HttpServletResponse.SC_OK);
 
