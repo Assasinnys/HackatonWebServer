@@ -12,7 +12,7 @@ public class DBHelper {
     private static final String USERS_TABLE = "users";
     private static final String LOGIN_C = "login";
     private static final String PASS_C = "pass";
-    private static final String ID_C = "_id";
+    private static final String ID_C = "id";
 
     private Connection connection;
 
@@ -44,7 +44,7 @@ public class DBHelper {
 
         try {
             ResultSet result = connection.createStatement().executeQuery("SELECT * FROM " + USERS_TABLE +
-                    " WHERE " + LOGIN_C + " = " + login);
+                    " WHERE " + LOGIN_C + " = \'" + login + "\'");
 
             if (result.next()) {
                 return new User(
