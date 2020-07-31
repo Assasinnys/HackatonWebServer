@@ -51,7 +51,7 @@ public class RegistrationServlet extends HttpServlet {
             case DBHelper.ERROR_CODE: {
                 out.print("{\"error\":\"" + DBHelper.ERROR_CODE + "\"}");
                 out.flush();
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
 
