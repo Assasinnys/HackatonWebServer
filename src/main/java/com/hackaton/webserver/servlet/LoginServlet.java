@@ -5,10 +5,12 @@ import com.hackaton.webserver.model.User;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -26,20 +28,25 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        ServletOutputStream out = resp.getOutputStream();
         String login = paramMap.get(KEY_LOGIN)[0];
         String pass = paramMap.get(KEY_PASS)[0];
         User user = ServiceLocator.dbHelper.getUser(login);
 
         if (user == null) {
+            out.print("{\"error\":\"User does not exist\"}");
+            out.flush();
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
         if (user.pass.equals(pass)) {
             JSONObject userJson = new JSONObject(user.getJsonMap());
-            resp.getOutputStream().write(userJson.toString().getBytes(StandardCharsets.UTF_8));
-            resp.getOutputStream().flush();
+            out.write(userJson.toString().getBytes(StandardCharsets.UTF_8));
+            out.flush();
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
+            out.print("{\"error\":\"Password is incorrect\"}");
+            out.flush();
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
