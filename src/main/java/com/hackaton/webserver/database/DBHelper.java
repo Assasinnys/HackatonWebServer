@@ -112,7 +112,7 @@ public class DBHelper {
     public UserLocation getUserLocation(int id) {
         try {
             Statement s = connection.createStatement();
-            ResultSet r = s.executeQuery("SELECT * FROM " + LOCATION_TABLE + " WHERE = " + USER_ID_C + " = " + id);
+            ResultSet r = s.executeQuery("SELECT * FROM " + LOCATION_TABLE + " WHERE " + USER_ID_C + " = " + id);
             if (r.next()) {
                 return new UserLocation(
                         r.getInt(USER_ID_C),
