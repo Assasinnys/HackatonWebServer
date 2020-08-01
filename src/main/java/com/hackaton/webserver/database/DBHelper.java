@@ -100,8 +100,7 @@ public class DBHelper {
         try {
             Statement s = connection.createStatement();
             ResultSet r = s.executeQuery("SELECT id FROM " + USERS_TABLE + " WHERE " + ID_C + " = " + id);
-            s.close();
-            return r.first();
+            return r.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
