@@ -19,6 +19,7 @@ public class WebServerMainThread extends Thread {
         context.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
         context.addServlet(new ServletHolder(new LocationServlet()), "/location");
         context.addServlet(new ServletHolder(new FindNearestUserServlet()), "/find");
+        context.addServlet(new ServletHolder(new UserDetailServlet()), "/detail");
         try {
             server.start();
             server.join();
