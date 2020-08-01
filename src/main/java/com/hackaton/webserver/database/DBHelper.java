@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper {
 
@@ -137,5 +139,25 @@ public class DBHelper {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<UserLocation> getNearestUsers(UserLocation location) {
+        ArrayList<UserLocation> users = new ArrayList<>();
+        try {
+            Statement s = connection.createStatement();
+            ResultSet resultSet = s.executeQuery("SELECT * FROM " + LOCATION_TABLE);
+            while (resultSet.next()) {
+                users.add(
+                        new UserLocation(
+                                resultSet.getInt(USER_ID_C),
+                                resultSet.getFloat(LAT_C),
+                                resultSet.getFloat(LON_C)
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
