@@ -47,19 +47,17 @@ public class UserDetailServlet extends HttpServlet {
             return;
         }
 
-        ServletOutputStream out = resp.getOutputStream();
         String login = paramMap.get(KEY_LOGIN)[0];
         String pass = paramMap.get(KEY_PASS)[0];
-        int age = Integer.parseInt(paramMap.get(KEY_AGE)[0]);
-        String gender = paramMap.get(KEY_GENDER)[0];
-        String alcoholType = paramMap.get(KEY_ALCOHOL)[0];
-        String userName = paramMap.get(KEY_USERNAME)[0];
 
         User user = ServiceLocator.dbHelper.getUser(login);
-
         if (user == null || !user.pass.equals(pass)) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
+            int age = Integer.parseInt(paramMap.get(KEY_AGE)[0]);
+            String gender = paramMap.get(KEY_GENDER)[0];
+            String alcoholType = paramMap.get(KEY_ALCOHOL)[0];
+            String userName = paramMap.get(KEY_USERNAME)[0];
             UserDetail detail = new UserDetail(user.id, age, alcoholType, gender, userName);
             if (ServiceLocator.dbHelper.setUserDetails(detail)) {
                 resp.setStatus(HttpServletResponse.SC_OK);
