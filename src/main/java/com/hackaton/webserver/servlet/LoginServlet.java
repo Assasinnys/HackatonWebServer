@@ -10,15 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-public class LoginServlet extends HttpServlet {
+import static com.hackaton.webserver.util.Constants.KEY_LOGIN;
+import static com.hackaton.webserver.util.Constants.KEY_PASS;
 
-    public static final String KEY_LOGIN = "login";
-    public static final String KEY_PASS = "pass";
-    public static final String KEY_ID = "id";
+public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,10 +47,5 @@ public class LoginServlet extends HttpServlet {
             out.flush();
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }

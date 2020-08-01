@@ -1,6 +1,7 @@
 package com.hackaton.webserver;
 
 import com.hackaton.webserver.servlet.Hi;
+import com.hackaton.webserver.servlet.LocationServlet;
 import com.hackaton.webserver.servlet.LoginServlet;
 import com.hackaton.webserver.servlet.RegistrationServlet;
 import org.eclipse.jetty.server.Server;
@@ -19,7 +20,7 @@ public class WebServerMainThread extends Thread {
         context.addServlet(new ServletHolder(new Hi()), "/*");
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
         context.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
-//        context.addServlet(new ServletHolder(new TakeActiveServlet()), "/takeactive");
+        context.addServlet(new ServletHolder(new LocationServlet()), "/location");
         try {
             server.start();
             server.join();

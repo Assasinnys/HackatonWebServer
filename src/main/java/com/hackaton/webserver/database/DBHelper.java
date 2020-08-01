@@ -1,6 +1,7 @@
 package com.hackaton.webserver.database;
 
 import com.hackaton.webserver.model.User;
+import com.hackaton.webserver.model.UserLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URI;
@@ -10,9 +11,13 @@ import java.sql.*;
 public class DBHelper {
 
     private static final String USERS_TABLE = "users";
+    private static final String LOCATION_TABLE = "userlocation";
     private static final String LOGIN_C = "login";
     private static final String PASS_C = "pass";
     private static final String ID_C = "id";
+    private static final String USER_ID_C = "userid";
+    private static final String LAT_C = "lat";
+    private static final String LON_C = "lon";
 
     public static final String CREATED_CODE = "created";
     public static final String ERROR_CODE = "unknown error";
@@ -81,5 +86,56 @@ public class DBHelper {
             e.printStackTrace();
         }
         return ERROR_CODE;
+    }
+
+    private boolean checkUserExist(int id) {
+        try {
+            Statement s = connection.createStatement();
+            ResultSet r = s.executeQuery("SELECT id FROM " + USERS_TABLE + " WHERE " + ID_C + " = " + id);
+            s.close();
+            return r.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Nullable
+    public UserLocation getUserLocation(int id) {
+        try {
+            Statement s = connection.createStatement();
+            ResultSet r = s.executeQuery("SELECT * FROM " + LOCATION_TABLE + " WHERE = " + USER_ID_C + " = " + id);
+            if (r.next()) {
+                return new UserLocation(
+                        r.getInt(USER_ID_C),
+                        r.getFloat(LAT_C),
+                        r.getFloat(LON_C)
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean setUserLocation(UserLocation location) {
+        try {
+            Statement s = connection.createStatement();
+            if (checkUserExist(location.id)) {
+                UserLocation loc = getUserLocation(location.id);
+                if (loc == null) {
+                    s.execute("INSERT INTO " + LOCATION_TABLE + " (" + USER_ID_C + ", " + LAT_C + ", " + LON_C +
+                            ") VALUES (" + location.id + ", " + location.lat + ", " + location.lon + ")");
+
+                } else {
+                    s.execute("UPDATE " + LOCATION_TABLE + " SET " + LAT_C + " = " + location.lat + ", " + LON_C + " = " + location.lon);
+                }
+                s.close();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
