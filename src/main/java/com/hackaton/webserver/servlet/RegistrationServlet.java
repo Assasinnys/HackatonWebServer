@@ -31,6 +31,11 @@ public class RegistrationServlet extends HttpServlet {
         String login = paramMap.get(KEY_LOGIN)[0];
         String pass = paramMap.get(KEY_PASS)[0];
 
+        if (login.equalsIgnoreCase("") || pass.equalsIgnoreCase("")) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
         String code = ServiceLocator.dbHelper.createUser(login, pass);
 
         switch (code) {
