@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import static com.hackaton.webserver.servlet.LoginServlet.KEY_LOGIN;
-import static com.hackaton.webserver.servlet.LoginServlet.KEY_PASS;
+import static com.hackaton.webserver.util.Constants.KEY_LOGIN;
+import static com.hackaton.webserver.util.Constants.KEY_PASS;
 
 public class RegistrationServlet extends HttpServlet {
     @Override

@@ -5,6 +5,8 @@ import com.hackaton.webserver.servlet.LoginServlet;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.hackaton.webserver.util.Constants.*;
+
 @SuppressWarnings("ALL")
 public class User {
 
@@ -20,9 +22,9 @@ public class User {
 
     public Map<String, String> getJsonMap() {
         Map<String, String> map = new HashMap<>();
-        map.put(LoginServlet.KEY_LOGIN, login);
-        map.put(LoginServlet.KEY_PASS, pass);
-        map.put(LoginServlet.KEY_ID, String.valueOf(id));
+        map.put(KEY_LOGIN, login);
+        map.put(KEY_PASS, pass);
+        map.put(KEY_ID, String.valueOf(id));
 
         return map;
     }
