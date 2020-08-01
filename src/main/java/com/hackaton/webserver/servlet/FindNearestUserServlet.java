@@ -19,20 +19,16 @@ public class FindNearestUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> paramMap = req.getParameterMap();
-        if (!paramMap.containsKey(KEY_ID) || !paramMap.containsKey(KEY_LAT) || !paramMap.containsKey(KEY_LON)) {
+        if (!paramMap.containsKey(KEY_ID)/* || !paramMap.containsKey(KEY_LAT) || !paramMap.containsKey(KEY_LON)*/) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         ServletOutputStream out = resp.getOutputStream();
         int userId = Integer.parseInt(paramMap.get(KEY_ID)[0]);
-        float lat = Float.parseFloat(paramMap.get(KEY_LAT)[0]);
-        float lon = Float.parseFloat(paramMap.get(KEY_LON)[0]);
-
-        UserLocation location = new UserLocation(userId, lat, lon);
         JSONArray array = new JSONArray();
 
-        for (UserLocation userLocation: ServiceLocator.dbHelper.getNearestUsers(location)) {
+        for (UserLocation userLocation: ServiceLocator.dbHelper.getNearestUsers(userId)) {
             array.put(userLocation.getJsonMap());
         }
 

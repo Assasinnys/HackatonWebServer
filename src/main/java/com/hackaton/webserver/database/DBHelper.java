@@ -141,7 +141,7 @@ public class DBHelper {
         return false;
     }
 
-    public List<UserLocation> getNearestUsers(UserLocation location) {
+    public List<UserLocation> getNearestUsers(int id) {
         ArrayList<UserLocation> users = new ArrayList<>();
         try {
             Statement s = connection.createStatement();
