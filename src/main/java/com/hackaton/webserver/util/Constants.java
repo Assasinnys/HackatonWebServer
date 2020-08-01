@@ -6,5 +6,8 @@ public abstract class Constants {
     public static final String KEY_ID = "id";
     public static final String KEY_LAT = "lat";
     public static final String KEY_LON = "lon";
-    public static final String KEY_NUM = "num";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_ALCOHOL = "alcohol";
+    public static final String KEY_AGE = "age";
+    public static final String KEY_GENDER = "gender";
 }
