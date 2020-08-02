@@ -206,7 +206,7 @@ public class DBHelper {
                         + " WHERE " + USER_ID_C + " = " + detail.userId);
             } else {
                 s.execute("INSERT INTO " + USERDETAIL_TABLE + " (" + USER_ID_C + ", " + AGE_C + ", " + ALCOHOL_C + ", " + GENDER_C + ", " + USERNAME_C +
-                        ") VALUES (" + detail.userId + ", " + detail.age + ", " + detail.alcoholType + ", " + detail.gender + ", " + detail.userName + ")");
+                        ") VALUES (" + detail.userId + ", " + detail.age + ", \'" + detail.alcoholType + "\', \'" + detail.gender + "\', \'" + detail.userName + "\')");
             }
             s.close();
             return true;
