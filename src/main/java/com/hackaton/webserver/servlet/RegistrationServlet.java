@@ -49,13 +49,9 @@ public class RegistrationServlet extends HttpServlet {
                 break;
             }
             case DBHelper.EXIST_CODE: {
-                out.print("{\"error\":\"" + DBHelper.EXIST_CODE + "\"}");
-                out.flush();
                 resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
             case DBHelper.ERROR_CODE: {
-                out.print("{\"error\":\"" + DBHelper.ERROR_CODE + "\"}");
-                out.flush();
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }

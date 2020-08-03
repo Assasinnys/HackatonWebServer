@@ -32,8 +32,6 @@ public class LoginServlet extends HttpServlet {
         User user = ServiceLocator.dbHelper.getUser(login);
 
         if (user == null) {
-            out.print("{\"error\":\"User does not exist\"}");
-            out.flush();
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -43,8 +41,6 @@ public class LoginServlet extends HttpServlet {
             out.flush();
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
-            out.print("{\"error\":\"Password is incorrect\"}");
-            out.flush();
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
