@@ -23,8 +23,8 @@ dependencies {
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.14.v20181114'
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.14.v20181114'
-    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.42.v20210604'
-    implementation 'com.google.code.gson:gson:2.8.7'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.42.v20210604'
+    compile 'com.google.code.gson:gson:2.8.7'
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.0'
     compile group: 'org.json', name: 'json', version: '20090211'
 }
